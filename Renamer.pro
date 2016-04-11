@@ -6,7 +6,7 @@
 
 QT       += core gui
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
 TARGET = Renamer
 TEMPLATE = app
@@ -15,11 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     file.cpp \
-    filedata.cpp
+    filedata.cpp \
+    qcustomplot.cpp
 
 HEADERS  += mainwindow.h \
     file.h \
-    filedata.h
+    filedata.h \
+    qcustomplot.h
 
 FORMS    += mainwindow.ui
 
