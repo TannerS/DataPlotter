@@ -20,7 +20,3 @@ void File::setModifiedTime(time_t time)
     this->last_modified_state = time;
 }
 
-void File::addPath(File path)
-{
-   // this->paths.
-}

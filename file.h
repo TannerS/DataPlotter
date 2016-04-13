@@ -10,7 +10,6 @@ class File
         void setPath(boost::filesystem::path path);
         time_t getModifiedTime();
         void setModifiedTime(time_t time);
-        void addPath(File);
 
     private:
         boost::filesystem::path path;
