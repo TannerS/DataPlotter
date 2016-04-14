@@ -56,6 +56,8 @@ void FileNames::getFileNames()
                //msg.assign(results[0].first);
             std::cout << "TEST: " << msg << " : " << results[2] << std::endl;
 
+            //***********************************************************************************left off
+
             msg.clear();
         }
 

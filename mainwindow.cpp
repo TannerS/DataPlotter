@@ -21,7 +21,7 @@
  *  should work for multi platform ****
  *  Plotting and save image for plotting *******
  *  parsing file for x,y *****
- * sorting by function poiter and boost*&***
+ * sorting by function poiter and boost****
  *
  */
 
