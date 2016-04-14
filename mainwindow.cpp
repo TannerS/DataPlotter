@@ -11,29 +11,43 @@
 #include "boost/lexical_cast.hpp"
 #include "boost/date_time/gregorian/gregorian.hpp"
 #include <ctime>
-#include "filedata.h"
 #include <qcustomplot.h>
-
-// http://www.boost.org/doc/libs/1_41_0/libs/filesystem/example/simple_ls.cpp
+    //todo
+/*
+ *  pattern matching**
+ *  file stuff
+ *  renaming files
+ *  UI
+ *  should work for multi platform ****
+ *  Plotting and save image for plotting *******
+ *  parsing file for x,y *****
+ * sorting by function poiter and boost*&***
+ *
+ */
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
+    // set up UI
     ui->setupUi(this);
+    // may remove
     QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    // set default UI's element path as current path
     ui->current_dir->setText(QDir::currentPath());
-    data = new FileData();
+    // init data that is a filedata object and contains vector of files that contain info on the files
+    this->data = new FileData();
+    this->names = new FileNames();
 }
 
 MainWindow::~MainWindow()
 {
+    // free up memory
     delete ui;
     delete data;
+    delete this->names;
 }
 
 void MainWindow::on_select_dir_clicked()
 {
-    test();
-
     // this = parent pointer, rest has default values
     QFileDialog dialog(this);
     // set encoding and type of files to accept
@@ -43,146 +57,123 @@ void MainWindow::on_select_dir_clicked()
     // needed to make it open properly
     if (dialog.exec())
     {
-        //allocate list of selected files (QStringList)
+        // allocate list of selected files (QStringList)
         initFiles(dialog.selectedFiles());
+        // rename files
         renameFiles();
     }
-
 }
 
 void MainWindow::initFiles(QStringList files)
 {
-    // temp path to use to hold information for file class
     // create path (init path, current dir??)
     boost::filesystem::path temp_path(boost::filesystem::initial_path());
     // loop all files
     for(int i = 0; i < files.size(); i++)
     {
+        // temp file object
+        //***************************************************************************more mem effeicnt way of doing this?
         File path;
         // get complete path (new path object (path as string, native format))
         temp_path = boost::filesystem::system_complete(boost::filesystem::path((std::string)(files.at(i).toLocal8Bit().constData()), boost::filesystem::native));
-
-        // check if path/file still exist
+        // check if path/file still exist**********************************************needs testing
         if(!boost::filesystem::exists(temp_path))
         {
+            // problem
+            //  **********************************************needs testing
             QMessageBox messageBox;
             messageBox.critical(0,"Error","A file does not exist");
             messageBox.setFixedSize(500,200);
             break;
         }
 
-        // does this get overwirtten each time???
+        // set the path to the
         path.setPath(temp_path);
         // set the last modified time
         path.setModifiedTime(boost::filesystem::last_write_time(temp_path));
-        // add path to list (path has location and modified time)
+        // add path to list
         data->addPath(path);
     }
 }
 
 void MainWindow::renameFiles()
 {
-    //debug
+    // get the file names
+    this->names->getFileNames();
 
     /*
-     *    // file name**
-    std::cout <<temp_path.filename() << std::endl;
+    boost::filesystem::path pa("C://users/Tanner Summers/file.txt");
+
+    std::cout <<pa.filename() << std::endl;
     // folder it is in **
-    std::cout <<temp_path.branch_path() << std::endl;
+    std::cout <<pa.branch_path() << std::endl;
     // file name??
-    std::cout <<temp_path.leaf() << std::endl;
+    std::cout <<pa.leaf() << std::endl;
     // folder it is in??
-    std::cout <<temp_path.parent_path() << std::endl;
+    std::cout <<pa.parent_path() << std::endl;
     // path + filename
-    std::cout <<temp_path.relative_path() << std::endl;
+    std::cout <<pa.relative_path() << std::endl;
+    /// end debug
+    */
 
-     *
-     *
-     */
-
-    std::string str[] = {"file1.txt", "file2.txt", "file3.txt", "file4.txt"};
-    const int size = 4;
-
-
-
-
-    //for(int i = 0; i < files.size(); i++)
+    /*
     for(int i = 0; i < size; i++)
     {
         auto t = (data->getPaths());
-        // what happens to old reference to the path? should i put that into list instead?
+        // what happens to old reference to the path? should i put that into list instead?*********************************
+        //**********************************************************************************neeed to check for which OS, unix uses / not \
         boost::filesystem::path temp(std::string(t->at(i).getPath().parent_path().string() + "\\" + str[i]));
 
         std::cout << "PATH!!!: " << temp << std::endl;
 
-       // if ( boost::filesystem::exists( temp ) )
-       // {
-           // boost::filesystem::rename( t->at(i).getPath(), temp );
-        //}
-            try {
-               boost::filesystem::rename( t->at(i).getPath(), temp );
-             }
-             catch (const boost::filesystem::filesystem_error& e)
-             {
-               std::cout << "ERROR: " << e.code()<< std::endl;
-             }
-
-
+        if ( boost::filesystem::exists( temp ) )
+        {
+            try
+            {
+                boost::filesystem::rename( t->at(i).getPath(), temp );
+            }
+            catch (const boost::filesystem::filesystem_error& e)
+            {
+                std::cout << "ERROR: " << e.code()<< std::endl;
+            }
+        }
 
         //std::cout << "PATH: " << t->at(i).getPath() << std::endl;
         //std::cout << "PATH: " << t->at(i). << std::endl;
         //std::cout << "TIME: " << t->at(i).getModifiedTime() << std::endl;
 
     }
-
-
-   boost::filesystem::path path( "C:\\MyStuff\\thisfile.txt" );
-       const boost::filesystem::path new_path( "C:\\MyStuff\\thatfile.txt" );
-
-       if ( boost::filesystem::exists( path ) )
-       {
-           boost::filesystem::rename( path, new_path );
-       }
-
-
-/*
-int main()
-{
-    boost::filesystem::path path( "C:\\MyStuff\\thisfile.txt" );
-    const boost::filesystem::path new_path( "C:\\MyStuff\\thatfile.txt" );
-
-    if ( boost::filesystem::exists( path ) )
-    {
-        boost::filesystem::rename( path, new_path );
-    }
-}
-
-
-
-
-bool move()
-{
-  path src("C:\\fldr1\\rawr.txt");
-  path dest("C:\\fldr2\\rared.txt");
-
-  try {
-    rename(src, dest);
-  }
-  catch (...)
-  {
-    return false;
-  }
-
-  return exists(dest);
-}
-
-
-
 */
+
 }
 
 void MainWindow::test()
 {
+
+
+
+    /*
+     *
+     * struct student
+{
+  string name;
+  string grade;
+};
+
+bool cmd(const student & s1, const student & s2)
+{
+   if (s1.name != s2.name) return s1.name < s2.name;
+   return s1.grade < s2.grade;
+}
+
+
+vector<student> s;
+sort(s.begin(), s.end(), cmd);
+     *
+     * /
+
+
+
     /*
     // file name**
     std::cout <<temp_path.filename() << std::endl;

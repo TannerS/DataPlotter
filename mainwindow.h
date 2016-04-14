@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "filedata.h"
+#include "filenames.h"
 
 namespace Ui
 {
@@ -26,6 +27,7 @@ private:
     void initFiles(QStringList);
     void renameFiles();
     FileData* data;
+    FileNames* names;
 };
 
 #endif // MAINWINDOW_H

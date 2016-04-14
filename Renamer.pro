@@ -16,12 +16,16 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     file.cpp \
     filedata.cpp \
-    qcustomplot.cpp
+    qcustomplot.cpp \
+    filenames.cpp \
+    patterns.cpp
 
 HEADERS  += mainwindow.h \
     file.h \
     filedata.h \
-    qcustomplot.h
+    qcustomplot.h \
+    filenames.h \
+    patterns.h
 
 FORMS    += mainwindow.ui
 

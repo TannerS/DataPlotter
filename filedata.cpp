@@ -26,3 +26,12 @@ FileData::~FileData()
     delete this->paths;
 }
 
+
+
+void FileData::sortByTime()
+{
+    //this->paths->s
+
+
+
+}

@@ -15,6 +15,8 @@ class FileData
 
     private:
         std::vector<File>* paths;
+        //************************************************8
+        void sortByTime();
 };
 
 #endif // DATA_H
