@@ -1,4 +1,5 @@
-#include "file.h"
+/*
+ * #include "file.h"
 
 boost::filesystem::path File::getPath()
 {
@@ -19,4 +20,4 @@ void File::setModifiedTime(time_t time)
 {
     this->last_modified_state = time;
 }
-
+*/

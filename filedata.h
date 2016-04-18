@@ -8,15 +8,14 @@ class FileData
 {
     public:
         FileData();
-        std::vector<File>* getPaths();
+        std::vector<File> getPaths();
         bool addPath(File path);
         auto getNumberOfPaths();
         ~FileData();
-
-    private:
-        std::vector<File>* paths;
-        //************************************************8
         void sortByTime();
+    private:
+        std::vector<File> paths;
+        //************************************************8
 };
 
 #endif // DATA_H

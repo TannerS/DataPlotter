@@ -3,6 +3,26 @@
 
 #include "boost/filesystem/path.hpp"
 
+struct File
+{
+    boost::filesystem::path path;
+    time_t last_modified_state;
+};
+
+struct FileCMP
+{
+    bool operator()( const File& f1, const File& f2 ) const
+    {
+        return f1.last_modified_state < f2.last_modified_state;
+    }
+};
+
+
+
+
+
+
+/*
 class File
 {
     public:
@@ -15,5 +35,6 @@ class File
         boost::filesystem::path path;
         time_t last_modified_state;
 };
+*/
 
 #endif // FILE_H

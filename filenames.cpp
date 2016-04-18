@@ -4,93 +4,111 @@
 #include <iostream>
 #include <fstream>
 #include "boost/regex.hpp"
+#include <QMessageBox>
+#include <unordered_map>
 
 FileNames::FileNames() : settings_name("file_names.csv")
 {
+    // creat map of test to filename for said test
+    //names = new std::unordered_map<std::string, std::string>();
 }
 
 FileNames::~FileNames()
 {
-
+    // free memory
+    //delete this->names;
 }
 
-void FileNames::getFileNames()
+ void FileNames::loadSettings()
 {
     // http://regexr.com/
-    // (Test)(\s)*[0-9]*(\s)*?[=](\s)*?\w*(.txt);
-
-    boost::regex expression("(Test)[0-9]*(\\s)*?[=](\\s)*?(\\w)*(.txt)");
-
+    // regular expression to follow format such that "Text <num> = <filename with num> (optional: _ <char><letters>).txt
+    boost::regex expression("(\\s*)(Test)(\\s*)[0-9]*(\\s*)(=)(\\s*)[a-zA-Z]*[0-9]*((_)[a-zA-Z]*)?(.txt)(\\s*)");
+    // instream to get file contents
     std::fstream input_file;
-
+    // open up file
     input_file.open("file_names.csv", std::ios::in);
-
+    // if error with file
     if(input_file.fail())
     {
-        // *********************************************do error connection
-        std::cout << " error" << std::endl;
+        // error message
+        QMessageBox messageBox;
+        messageBox.critical(0,"Error","File: file_names.csv missing");
+        messageBox.setFixedSize(500,200);
     }
     else
     {
-
-    std::string temp = "";
-    std::string line = "";
-    std::string msg = "";
-
-    std::cout << "HELLO: " << std::endl;
-
-    while(std::getline(input_file, temp))
-    {
-            std::cout << "HELLO22: " << temp << std::endl;
-
-        //boost::cmatch results;
-        boost::match_results<std::string::const_iterator> results;
-
-        //if(boost::regex_match(line, results, expression))
-        if(boost::regex_match(temp, results, expression))
+        // string to get line from file
+        std::string temp = "";
+        // loop file getting each line
+        while(std::getline(input_file, temp))
         {
+            // hold string match results
+            boost::match_results<std::string::const_iterator> results;
+            // get results based off regualr expression
+            if(boost::regex_match(temp, results, expression))
+            {
+                // set to use string methods
+                temp = results[0];
+                // remove all white spaces from text
+                temp.erase(std::remove_if(temp.begin(), temp.end(), [](char pos){return std::isspace(pos);}), temp.end());
+                // seperate string into two substrings, test and filename for test
+                boost::regex filename_re("=");
+                boost::sregex_token_iterator iter(temp.begin(), temp.end(), filename_re, -1);
 
+                std::string x = (*iter);
+                iter++;
+                std::string y = (*iter);
 
+                std::cout << "KEY: " << x << " VALUE: " << y << std::endl;
 
-            //if(msg)
-               //msg.assign(results[0].first);
-            std::cout << "TEST: " << msg << " : " << results[2] << std::endl;
+                std::pair<std::string, std::string> file_info (x,y);
 
-            //***********************************************************************************left off
-
-            msg.clear();
-        }
-
-        /*
-        int process_ftp(const char* response, std::string* msg)
-        {
-           cmatch what;
-           if(regex_match(response, what, expression))
-           {
-              // what[0] contains the whole string
-              // what[1] contains the response code
-              // what[2] contains the separator character
-              // what[3] contains the text message.
-              if(msg)
-                 msg->assign(what[3].first, what[3].second);
-              return std::atoi(what[1].first);
-           }
-           // failure did not match
-           if(msg)
-              msg->erase();
-              */
-
-
-    }
+                this->names.insert(file_info);
 
 /*
-        // tokenize each line to get the info from
-        boost::tokenizer<boost::escaped_list_separator<char>> tokenizer(input_file);
+                std::unordered_map<std::string,std::string>::const_iterator iter2 = names.find (x);
 
-        for (boost::tokenizer<boost::escaped_list_separator<char>>::iterator iter(tokenizer.begin()); iter != tokenizer.end(); iter++)
-        {
-           this->names.push_back(*iter);
+                 if (iter2 == names.end())
+                 {
+                             std::cout << " ************************************************************************** " ;
+                   //1return iter2->second;
+                 }
+                 else
+                   std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! " ;
+
+
+                // http://stackoverflow.com/questions/9926544/assigning-value-into-unordered-map-pointer-after-creating-a-instance-of-it
+*/
+            }
         }
-        */
     }
 }
+
+ std::string FileNames::getMapValue(std::string str)
+ {
+     // http://stackoverflow.com/questions/9926544/assigning-value-into-unordered-map-pointer-after-creating-a-instance-of-it
+
+     std::string temp;
+
+    // (*this->Accounts)["hello"] = "test";
+     //cout << (*this->Accounts)["hello"];
+    temp = this->names[str];
+    // std::cout << "DEBUG : " << ((this->names)[str]) << " END DEBUG" << std:: endl;
+     return temp;
+
+/*
+     std::unordered_map<std::string,std::string>::const_iterator iter = names.find ("Test 2");
+
+      if (iter == names.end())
+      {
+                  std::cout << " ************************************************************************** " ;
+        return iter->second;
+      }
+      else
+        std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! " ;
+
+      std::cout << std::endl;
+      */
+     //return nullptr;
+ }
