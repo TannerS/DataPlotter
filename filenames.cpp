@@ -88,27 +88,7 @@ FileNames::~FileNames()
  std::string FileNames::getMapValue(std::string str)
  {
      // http://stackoverflow.com/questions/9926544/assigning-value-into-unordered-map-pointer-after-creating-a-instance-of-it
-
      std::string temp;
-
-    // (*this->Accounts)["hello"] = "test";
-     //cout << (*this->Accounts)["hello"];
     temp = this->names[str];
-    // std::cout << "DEBUG : " << ((this->names)[str]) << " END DEBUG" << std:: endl;
      return temp;
-
-/*
-     std::unordered_map<std::string,std::string>::const_iterator iter = names.find ("Test 2");
-
-      if (iter == names.end())
-      {
-                  std::cout << " ************************************************************************** " ;
-        return iter->second;
-      }
-      else
-        std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! " ;
-
-      std::cout << std::endl;
-      */
-     //return nullptr;
  }

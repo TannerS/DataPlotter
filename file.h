@@ -3,6 +3,7 @@
 
 #include "boost/filesystem/path.hpp"
 
+// needed to get sorting working, will try alternative solution later
 struct File
 {
     boost::filesystem::path path;

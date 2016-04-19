@@ -28,6 +28,7 @@ private:
     void renameFiles();
     FileData* data;
     FileNames* names;
+    void ParseFiles();
 };
 
 #endif // MAINWINDOW_H

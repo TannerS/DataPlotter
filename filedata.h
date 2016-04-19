@@ -13,6 +13,7 @@ class FileData
         auto getNumberOfPaths();
         ~FileData();
         void sortByTime();
+        void setPaths(std::vector<File>);
     private:
         std::vector<File> paths;
         //************************************************8

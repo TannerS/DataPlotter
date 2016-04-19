@@ -11,6 +11,11 @@ std::vector<File> FileData::getPaths()
     return paths;
 }
 
+void FileData::setPaths(std::vector<File> paths)
+{
+    this->paths = paths;
+}
+
 bool FileData::addPath(File path)
 {
     paths.push_back(path);
