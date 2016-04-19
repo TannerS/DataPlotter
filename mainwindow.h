@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "filedata.h"
 #include "filenames.h"
+#include "fileparser.h"
 
 namespace Ui
 {
@@ -28,6 +29,7 @@ private:
     void renameFiles();
     FileData* data;
     FileNames* names;
+    FileParser* parser;
     void ParseFiles();
 };
 

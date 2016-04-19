@@ -1,5 +1,6 @@
 #include "filedata.h"
 #include <algorithm>
+#include <iostream>
 
 FileData::FileData()
 {
@@ -13,7 +14,33 @@ std::vector<File> FileData::getPaths()
 
 void FileData::setPaths(std::vector<File> paths)
 {
+
+    std::vector<File>::iterator i;
+
+    for(i = paths.begin(); i != paths.end(); ++i)
+    {
+        std::cout << "DEBUG _____: " << (*i).path << std::endl;
+
+}
+
+
+
+
     this->paths = paths;
+
+
+
+    std::vector<File>::iterator ii;
+
+    for(ii = this->paths.begin(); ii != this->paths.end(); ++ii)
+    {
+        std::cout << "DEBUG _____: " << (*ii).path << std::endl;
+
+}
+
+
+
+
 }
 
 bool FileData::addPath(File path)

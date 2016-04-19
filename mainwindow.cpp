@@ -43,6 +43,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     this->data = new FileData();
     // create object to load file names
     this->names = new FileNames();
+    // create object to parse file
+    this->parser = new FileParser();
 }
 
 MainWindow::~MainWindow()
@@ -51,6 +53,7 @@ MainWindow::~MainWindow()
     delete ui;
     delete data;
     delete names;
+    delete this->parser;
 }
 
 void MainWindow::on_select_dir_clicked()
@@ -146,13 +149,13 @@ void MainWindow::renameFiles()
                // std::cout << "ENTER HERE " << temp << std::endl;
                 // rename file from .getPath to temp
                 //////////////////////////////////////////////////*******************************************************************************uncomment
-                //boost::filesystem::rename( t.at(i).path, temp );
+                boost::filesystem::rename( t.at(i).path, temp );
                 // http://stackoverflow.com/questions/39912/how-do-i-remove-an-item-from-a-stl-vector-with-a-certain-value
 
                 // get info before rename and make new vecto with same info except new renamed paths
                 //temp_file = new File();
                 temp_file.last_modified_state = t.at(i).last_modified_state;
-                temp_file.path = t.at(i).path;
+                temp_file.path = temp;
                 //t.erase(std::remove(t.begin(), t.end(), i), t.end());
                 new_paths.push_back(temp_file);
                 //delete temp_file;
@@ -181,8 +184,19 @@ void MainWindow::renameFiles()
 
     this->data->setPaths(new_paths);
     this->data->sortByTime();
+/*
+    std::vector<File>::iterator i;
 
-    ParseFiles();
+    for(i = this->data->getPaths().begin(); i != this->data->getPaths().end(); ++i)
+    {
+        std::cout << "DEBUG _____: " << (*i).path << std::endl;
+
+
+
+    }
+*/
+
+    //ParseFiles();
 }
 
 void MainWindow::ParseFiles()
@@ -195,10 +209,7 @@ void MainWindow::ParseFiles()
 
 std::cout << "FILE: " << s << '\n';
 
-
     input.open(s, std::ios::in);
-
-
 
     if(input.fail())
     {
