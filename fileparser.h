@@ -4,12 +4,14 @@
 #include "boost/filesystem/path.hpp"
 #include "axis.h"
 #include <QVector>
+#include "graph.h"
 
 class FileParser
 {
     public:
 
-        QVector<double> processFile(boost::filesystem::path);
+        Graph processFile(boost::filesystem::path);
+
 
     private:
         void processString(std::string&, Axis&);

@@ -1,57 +1,78 @@
 #include "graph.h"
 
-graph::graph()
+Graph::Graph()
 {
 
 
 }
 
-void setFileName(QString name)
+void Graph::setFileName(QString name)
 {
     this->file_name = name;
 }
 
-QString getFileName()
+QString Graph::getFileName()
 {
     return this->file_name;
 }
 
-void setXAxisVector(QVector<double> x)
+void Graph::setXAxisVector(QVector<double> x)
 {
     this->x = x;
 }
 
-void setYAxisVector(QVector<double> y)
+void Graph::setYAxisVector(QVector<double> y)
 {
     this->y = y;
 }
 
-QVector<double> getXAxisVector()
+QVector<double> Graph::getXAxisVector()
 {
     return this->x;
 }
 
-QVector<double> getYAxisVector()
+QVector<double> Graph::getYAxisVector()
 {
     return this->y;
 }
 
-void setMin(float min)
+void Graph::setXMin(float min)
 {
-    this->min = min;
+    this->xmin = min;
 }
 
-void setMax(float max)
+void Graph::setXMax(float max)
 {
-    this->max = max;
+    this->xmax = max;
 }
 
-float getMin()
+void Graph::setYMin(float min)
 {
-    return this->min;
+    this->ymin = min;
 }
 
-float getMax()
+void Graph::setYMax(float max)
 {
-    return this->max;
+    this->ymax = max;
 }
+
+float Graph::getXMin()
+{
+    return this->xmin;
+}
+
+float Graph::getXMax()
+{
+    return this->xmax;
+}
+
+float Graph::getYMin()
+{
+    return this->ymin;
+}
+
+float Graph::getYMax()
+{
+    return this->ymax;
+}
+

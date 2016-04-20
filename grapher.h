@@ -3,20 +3,22 @@
 
 
 #include "qcustomplot.h"
-#include "graph.h"
 #include <QVector>
+#include "graph.h"
 
 class Grapher
 {
     public:
         Grapher();
-        QVector<Graph> getGraphs();
+        QVector<Graph>* getGraphs();
         bool addGraph(Graph);
+        void generateGraph(int);
+        ~Grapher();
 
     private:
         QCustomPlot* plotter;
         QVector<Graph>* graphs;
-        void generateGraph(int);
+        //void generateGraph(int);
 };
 
 #endif // GRAPHER_H

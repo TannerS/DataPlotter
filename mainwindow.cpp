@@ -20,6 +20,7 @@
 #include <boost/spirit/include/qi.hpp>
         #include <string>
         #include <iostream>
+#include "grapher.h"
 
     //todo
 /*
@@ -78,6 +79,7 @@ void MainWindow::on_select_dir_clicked()
         initFiles(dialog.selectedFiles());
         // rename files
         renameFiles();
+        ParseFiles();
     }
 }
 
@@ -184,8 +186,8 @@ void MainWindow::renameFiles()
             messageBox.setFixedSize(500,200);
         }
 
-        //std::cout << "PATH: " << t.at(i).path << std::endl;
-       // std::cout << "TIME: " << t.at(i).last_modified_state << std::endl;
+       // std::cout << "PATH: " << t.at(i).path << std::endl;
+        //std::cout << "TIME: " << t.at(i).last_modified_state << std::endl;
 
     }
 
@@ -203,7 +205,6 @@ void MainWindow::renameFiles()
     }
 */
 
-    ParseFiles();
 }
 
 void MainWindow::ParseFiles()
@@ -211,9 +212,24 @@ void MainWindow::ParseFiles()
     //***************************************************************need to eat up wortless data
     for(int i = 0; i < this->data->getPaths().size(); i++)
     {
+        // get path
         boost::filesystem::path temp;
+      //  boost::filesystem::path test;
+
+       // test.filename()
+
         temp = this->data->getPaths().at(i).path;
+
+        temp.replace_extension(".png");
+
+        std::cout << "DEBUG_: "<< temp.filename() << std::endl;
+
+        // process path and add graph object to grapher's built in
+        // graph object array
+        // this method also collects info from the file
+        // then adds graph
         this->grapher->addGraph(this->parser->processFile(temp));
+       // // generate graph and save image
         this->grapher->generateGraph(i);
     }
 }

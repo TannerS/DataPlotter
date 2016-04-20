@@ -1,8 +1,10 @@
 #include "grapher.h"
+#include "graph.h"
+#include "qcustomplot.h"
 
 // set plotter to 0 aka null
 //********************************************test nullptr
-Grapher::Grapher() : plotter(0)
+Grapher::Grapher()// : plotter(0)
 {
     plotter = new QCustomPlot;
     //plotter->savePng(qApp->applicationDirPath()+"/output.png", 500, 300);
@@ -16,7 +18,7 @@ Grapher::~Grapher()
     delete graphs;
 }
 
-QVector<Graph> getGraphs()
+QVector<Graph>* Grapher::getGraphs()
 {
     return this->graphs;
 }
@@ -106,7 +108,7 @@ void MainWindow::plot()
 
 bool Grapher::addGraph(Graph g)
 {
-    this->graphs.push_back(g);
+    this->graphs->push_back(g);
     return true;
 }
 

@@ -1,6 +1,7 @@
 #ifndef GRAPHS_H
 #define GRAPHS_H
 #include <QString>
+#include <QVector>
 
 class Graph
 {
@@ -12,17 +13,23 @@ class Graph
         void setYAxisVector(QVector<double>);
         QVector<double> getXAxisVector();
         QVector<double> getYAxisVector();
-        void setMin(float);
-        void setMax(float);
-        float getMin();
-        float getMax();
+        void setXMin(float);
+        void setXMax(float);
+        void setYMin(float);
+        void setYMax(float);
+        float getXMin();
+        float getXMax();
+        float getYMin();
+        float getYMax();
 
     private:
         QString file_name;// = QString::fromStdString(name);
         QVector<double> x;
         QVector<double> y;
-        float min;
-        float max;
+        float xmin;
+        float xmax;
+        float ymin;
+        float ymax;
 };
 
 #endif // GRAPHS_H
