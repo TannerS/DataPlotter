@@ -7,6 +7,8 @@ class Graph
 {
     public:
         Graph();
+        QString getPath();
+        void setPath(QString);
         void setFileName(QString);
         QString getFileName();
         void setXAxisVector(QVector<double>);
@@ -24,6 +26,7 @@ class Graph
 
     private:
         QString file_name;// = QString::fromStdString(name);
+        QString path;
         QVector<double> x;
         QVector<double> y;
         float xmin;

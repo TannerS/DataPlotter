@@ -76,3 +76,13 @@ float Graph::getYMax()
     return this->ymax;
 }
 
+QString Graph::getPath()
+{
+    return this->path;
+}
+
+void Graph::setPath(QString path)
+{
+    this->path = path;
+}
+

@@ -212,24 +212,16 @@ void MainWindow::ParseFiles()
     //***************************************************************need to eat up wortless data
     for(int i = 0; i < this->data->getPaths().size(); i++)
     {
-        // get path
-        boost::filesystem::path temp;
-      //  boost::filesystem::path test;
-
-       // test.filename()
-
-        temp = this->data->getPaths().at(i).path;
-
-        temp.replace_extension(".png");
-
-        std::cout << "DEBUG_: "<< temp.filename() << std::endl;
+;
 
         // process path and add graph object to grapher's built in
         // graph object array
         // this method also collects info from the file
         // then adds graph
-        this->grapher->addGraph(this->parser->processFile(temp));
+        this->grapher->addGraph(this->parser->processFile(this->data->getPaths().at(i).path));
        // // generate graph and save image
+
+     std::cout << "START!!!!!!!!!!!!! " << std::endl;
         this->grapher->generateGraph(i);
     }
 }
