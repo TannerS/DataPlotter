@@ -7,11 +7,9 @@
 class FileData
 {
     public:
-        FileData();
         std::vector<File> getPaths();
         bool addPath(File path);
         auto getNumberOfPaths();
-        ~FileData();
         void sortByTime();
         void setPaths(std::vector<File>);
     private:

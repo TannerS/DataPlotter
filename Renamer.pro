@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     qcustomplot.cpp \
     filenames.cpp \
     fileparser.cpp \
-    grapher.cpp
+    grapher.cpp \
+    graph.cpp
 
 HEADERS  += mainwindow.h \
     file.h \
@@ -28,7 +29,8 @@ HEADERS  += mainwindow.h \
     filenames.h \
     axis.h \
     fileparser.h \
-    grapher.h
+    grapher.h \
+    graph.h
 
 FORMS    += mainwindow.ui
 

@@ -9,14 +9,6 @@
 
 FileNames::FileNames() : settings_name("file_names.csv")
 {
-    // creat map of test to filename for said test
-    //names = new std::unordered_map<std::string, std::string>();
-}
-
-FileNames::~FileNames()
-{
-    // free memory
-    //delete this->names;
 }
 
  void FileNames::loadSettings()

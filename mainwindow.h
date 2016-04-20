@@ -5,6 +5,7 @@
 #include "filedata.h"
 #include "filenames.h"
 #include "fileparser.h"
+#include "grapher.h"
 
 namespace Ui
 {
@@ -31,6 +32,7 @@ private:
     FileNames* names;
     FileParser* parser;
     void ParseFiles();
+    Grapher* grapher;
 };
 
 #endif // MAINWINDOW_H

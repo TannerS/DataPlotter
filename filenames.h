@@ -10,8 +10,6 @@ class FileNames
         FileNames();
         void loadSettings();
         std::string getMapValue(std::string);
-        // need function to get names from in vector
-        ~FileNames();
 
     private:
         const std::string settings_name;

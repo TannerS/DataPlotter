@@ -24,11 +24,14 @@
     //todo
 /*
  * if file already exist when renaming***********
- *  file stuff
- *  renaming files
- *  Plotting and save image for plotting *******
- *  parsing file for x,y *****
+ *  error checking
+ * deletes when needed
+ * convert other stuff to deletes from statics\
+eat up worthless liness
 
+
+
+path, fileinfo etc for ploting
  *
  */
 
@@ -46,6 +49,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     this->names = new FileNames();
     // create object to parse file
     this->parser = new FileParser();
+    // create object to process graphs
+    this->grapher = new Grapher();
 }
 
 MainWindow::~MainWindow()
@@ -55,6 +60,7 @@ MainWindow::~MainWindow()
     delete data;
     delete names;
     delete this->parser;
+    delete this->grapher;
 }
 
 void MainWindow::on_select_dir_clicked()
@@ -202,79 +208,12 @@ void MainWindow::renameFiles()
 
 void MainWindow::ParseFiles()
 {
-    std::vector<Axis> data;
-
-
-    std::cout << "PARSING FILE"<< std::endl;
     //***************************************************************need to eat up wortless data
-
-   // (boost::filesystem::path);
-
-    boost::filesystem::path temp;
-    temp = this->data->getPaths().at(0).path;
-
-
-    data = this->parser->processFile(temp);
-
-    std::cout << "displaying axis"<< std::endl;
-
-
-        std::vector<Axis>::iterator i;
-
-        for(i = data.begin(); i != data.end(); ++i)
-        {
-            std::cout << "AXIS: " << (*i).x << " " << (*i).y << std::endl;
-
-
-
-
-
-        }
-
-
-
-    /*
-    //boost::filesystem::fstream input;
-
-    std::fstream input;
-
-    std::string s = this->data->getPaths().at(0).path.string();
-
-std::cout << "FILE: " << s << '\n';
-
-    input.open(s, std::ios::in);
-
-    if(input.fail())
+    for(int i = 0; i < this->data->getPaths().size(); i++)
     {
-        QMessageBox messageBox;
-        //messageBox.critical(0,"Error: File: " <<  this->data->getPaths().at(0).path << " is missing");
-        messageBox.setFixedSize(500,200);
-        std::cout << "ERROR!!" << '\n';
+        boost::filesystem::path temp;
+        temp = this->data->getPaths().at(i).path;
+        this->grapher->addGraph(this->parser->processFile(temp));
+        this->grapher->generateGraph(i);
     }
-    else
-    {
-        std::cout << "here" << '\n';
-
-        std::string str[] = {"- [-48.0093, 41.5957, -66.8010, 18202.0]",
-                         "- [-48.0285, 41.6264, -66.7606, 18203.1]",
-                         "- [-48.0061, 41.6415, -66.8078, 18204.0]"};
-
-          std::getline(std::cin, s);
-
-
-          auto it = s.begin();
-
-          bool match = boost::spirit::qi::parse(it, s.end(), boost::spirit::ascii::digit);
-          std::cout << std::boolalpha << match << '\n';
-          if (it != s.end())
-            std::cout << std::string{it, s.end()} << '\n';
-
-
-
-          std::cout << "here2" << '\n';
-
-    }
-
-        */
-
 }
