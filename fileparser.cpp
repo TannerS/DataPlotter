@@ -6,18 +6,17 @@
 #include "axis.h"
 #include "boost/range/algorithm/find.hpp"
 #include "boost/range/algorithm/remove_if.hpp"
+#include <sstream>
+#include <iostream>
 
-FileParser::FileParser()
-{
-
-}
-
-std::vector<Axis> FileParser::processFile(boost::filesystem::path path)
+void FileParser::processFile(boost::filesystem::path path)
 {
     //std::fstream in;
     boost::filesystem::fstream in;
-    std::vector<Axis> vec;
+    //std::vector<Axis> vec;
     in.open(path, std::ios::in);
+
+    std::cout << "DEBUG: " << std::endl;
 
     std::string temp;
 
@@ -29,44 +28,49 @@ std::vector<Axis> FileParser::processFile(boost::filesystem::path path)
 
     while (getline(in, temp))
     {
-        Point ax;
-        processString(temp, ax);
-        vec.push_back(ax);
-
-        //000cout << p.x << " " << p.y << std::endl;
+        Axis ax;
+        std::cout << "DEBUG STRING : "<< temp << std::endl;
+        this->processString(temp, ax);
+        //vec.push_back(ax);
+        this->points.push_back(ax);
     }
-    return vec;
+   // return vec;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////**********88
-Axis FileParser::processString(std::string& file, Axis& ax)
+void FileParser::processString(std::string& file, Axis& ax)
 {
     if (!file.empty())
     {
-        partialParse(file, ax);
+        partialParse(file);
         std::istringstream ss{file};
+            std::cout << "DEBUG SSTREAM STEP: "<< file << std::endl;
         ss >> ax.x >> ax.y;
+        std::cout << "DEBUG x && Y: "<< ax.x << " " << ax.y<< std::endl;
     }
-
-    return cor;
 }
 
 
-std::string FileParser::partialParse(std::string& file)
+void FileParser::partialParse(std::string& str)
 {
-    /*
+
+    std::cout << "DEBUG PARSE PART 1 : "<< str << std::endl;
     auto i{ std::find(std::begin(str), std::end(str), '[') };
-    std::remove(std::begin(str), std::end(str), '-');
+    std::remove(std::begin(str), i, '-');
+
+        std::cout << "DEBUG PARSE PART 2 : "<< str << std::endl;
+
     std::remove_if(std::begin(str), std::end(str), [](char c)
                                                     {
                                                         return c == ',' || c == '[' || c == ']';
                                                     });
-    */
 
-    auto i { boost::range::find(boost::begin(str), std::end(str), '[')};
-    boost::filesystem::remove(boost::begin(str), std::end(str), '-');
-    boost::range::remove_if(boost::begin(str), std::end(str), [](char c)
-                                                                {
-                                                                    return c == ',' || c == '[' || c == ']';
-                                                                });
+        std::cout << "DEBUG PARSE PART 3 : "<< str << std::endl;
+}
+
+
+
+std::vector<Axis> FileParser::getPoints()
+{
+    return this->points;
 }

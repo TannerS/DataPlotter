@@ -15,6 +15,7 @@
 #include <qcustomplot.h>
 #include <algorithm>
 #include <fstream>
+#include "axis.h"
 
 #include <boost/spirit/include/qi.hpp>
         #include <string>
@@ -196,11 +197,43 @@ void MainWindow::renameFiles()
     }
 */
 
-    //ParseFiles();
+    ParseFiles();
 }
 
 void MainWindow::ParseFiles()
 {
+    std::vector<Axis> data;
+
+
+    std::cout << "PARSING FILE"<< std::endl;
+    //***************************************************************need to eat up wortless data
+
+   // (boost::filesystem::path);
+
+    boost::filesystem::path temp;
+    temp = this->data->getPaths().at(0).path;
+
+
+    data = this->parser->processFile(temp);
+
+    std::cout << "displaying axis"<< std::endl;
+
+
+        std::vector<Axis>::iterator i;
+
+        for(i = data.begin(); i != data.end(); ++i)
+        {
+            std::cout << "AXIS: " << (*i).x << " " << (*i).y << std::endl;
+
+
+
+
+
+        }
+
+
+
+    /*
     //boost::filesystem::fstream input;
 
     std::fstream input;
@@ -242,6 +275,6 @@ std::cout << "FILE: " << s << '\n';
 
     }
 
-
+        */
 
 }
