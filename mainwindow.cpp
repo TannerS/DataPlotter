@@ -212,8 +212,6 @@ void MainWindow::ParseFiles()
     //***************************************************************need to eat up wortless data
     for(int i = 0; i < this->data->getPaths().size(); i++)
     {
-;
-
         // process path and add graph object to grapher's built in
         // graph object array
         // this method also collects info from the file
@@ -221,7 +219,8 @@ void MainWindow::ParseFiles()
         this->grapher->addGraph(this->parser->processFile(this->data->getPaths().at(i).path));
        // // generate graph and save image
 
-     std::cout << "START!!!!!!!!!!!!! " << std::endl;
+     std::cout << "START!!!!!!!!!!!!! " << this->data->getPaths().size() << std::endl;
         this->grapher->generateGraph(i);
+      std::cout << "ENDT!!!!!!!!!!!!! " << std::endl;
     }
 }

@@ -11,8 +11,8 @@ class Graph
         void setPath(QString);
         void setFileName(QString);
         QString getFileName();
-        void setXAxisVector(QVector<double>);
-        void setYAxisVector(QVector<double>);
+        void setXAxisVectorPoint(double);
+        void setYAxisVectorPoint(double);
         QVector<double> getXAxisVector();
         QVector<double> getYAxisVector();
         void setXMin(float);

@@ -16,14 +16,14 @@ QString Graph::getFileName()
     return this->file_name;
 }
 
-void Graph::setXAxisVector(QVector<double> x)
+void Graph::setXAxisVectorPoint(double x)
 {
-    this->x = x;
+    this->x.push_back(x);
 }
 
-void Graph::setYAxisVector(QVector<double> y)
+void Graph::setYAxisVectorPoint(double y)
 {
-    this->y = y;
+    this->y.push_back(y);
 }
 
 QVector<double> Graph::getXAxisVector()

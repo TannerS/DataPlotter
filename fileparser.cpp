@@ -19,23 +19,21 @@ Graph FileParser::processFile(boost::filesystem::path path)
     // temp path with removed ext
     boost::filesystem::path temp_path(path);
     //************************************************************does this change original?
-    std::cout << "DEBUG_: "<< temp_path.filename() << std::endl;
+  //  std::cout << "DEBUG_: "<< temp_path.filename() << std::endl;
 
-    std::cout << "DEBUG_: "<< temp_path.parent_path() << std::endl;
-    std::cout << "DEBUG_: "<< temp_path.branch_path() << std::endl;
-    std::cout << "DEBUG_: "<< temp_path.generic_string() << std::endl;
-    std::cout << "DEBUG_: "<<  temp_path.relative_path()<< std::endl;
-    std::cout << "DEBUG_: "<< temp_path.root_directory() << std::endl;
-    std::cout << "DEBUG_: "<< temp_path.root_path()<< std::endl;
+    //std::cout << "DEBUG_: "<< temp_path.parent_path() << std::endl;
+    //std::cout << "DEBUG_: "<< temp_path.branch_path() << std::endl;
+    //std::cout << "DEBUG_: "<< temp_path.generic_string() << std::endl;
+    //std::cout << "DEBUG_: "<<  temp_path.relative_path()<< std::endl;
+    //std::cout << "DEBUG_: "<< temp_path.root_directory() << std::endl;
+    //std::cout << "DEBUG_: "<< temp_path.root_path()<< std::endl;
     //std::cout << "DEBUG_: "<<  temp_path.path() << std::endl;
-
 
     // create stream to open file
     boost::filesystem::fstream in;
     // open file using path
     //**************************************************************************8
     in.open(temp_path, std::ios::in);
-
 
     // remove ext so later we can use filename for photo name without the .xxx
     temp_path.replace_extension(".png");
@@ -76,8 +74,32 @@ Graph FileParser::processFile(boost::filesystem::path path)
             // process string to get xy axis
             processString(temp, xy);
             // get x coordinates, and no
-            graph.getXAxisVector().push_back(xy.x);
-            graph.getYAxisVector().push_back(xy.y);
+           // graph.getXAxisVector().push_back(xy.x);
+            //graph.getYAxisVector().push_back(xy.y);
+
+            graph.setXAxisVectorPoint(xy.x);
+            graph.setYAxisVectorPoint(xy.y);
+
+
+
+
+            for(int i = 0 ;i < 100; i++)
+            {
+               // std::cout <<"NEW: " << xy.x << " " << xy.y << std::endl;
+            }
+
+
+            for(int i = 0 ;i < 100; i++)
+            {
+               // std::cout <<"NEW: " << graph.getXAxisVector().at(i) << " " << graph.getYAxisVector().at(i) << std::endl;
+            }
+
+
+
+
+
+
+
             // first real line of data
             if(counter == 15)
             {
@@ -125,7 +147,8 @@ Graph FileParser::processFile(boost::filesystem::path path)
     graph.setYMax(ymax);
     graph.setYMin(ymin);
 
-   return graph;
+
+    return graph;
 }
 
 void FileParser::processString(std::string& file, Axis& ax)
