@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1005</width>
+    <width>900</width>
     <height>481</height>
    </rect>
   </property>
@@ -40,12 +40,9 @@
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item alignment="Qt::AlignVCenter">
-     <widget class="QLineEdit" name="current_dir"/>
-    </item>
-    <item alignment="Qt::AlignVCenter">
-     <widget class="QPushButton" name="select_dir">
+     <widget class="QPushButton" name="select_files">
       <property name="text">
-       <string>Select Directory</string>
+       <string>Rename</string>
       </property>
       <property name="iconSize">
        <size>
@@ -60,6 +57,19 @@
        <bool>false</bool>
       </property>
       <property name="flat">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="plot_files">
+      <property name="text">
+       <string>Plot</string>
+      </property>
+      <property name="autoDefault">
+       <bool>true</bool>
+      </property>
+      <property name="default">
        <bool>false</bool>
       </property>
      </widget>

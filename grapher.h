@@ -18,6 +18,7 @@ class Grapher
     private:
         QCustomPlot* plotter;
         QVector<Graph>* graphs;
+        QCPCurve* curve;
         //void generateGraph(int);
 };
 

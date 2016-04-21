@@ -43,7 +43,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     // may remove
     QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     // set default UI's element path as current path
-    ui->current_dir->setText(QDir::currentPath());
+    //ui->current_dir->setText(QDir::currentPath());
     // init data that is a filedata object and contains vector of files that contain info on the files
     this->data = new FileData();
     // create object to load file names
@@ -64,7 +64,7 @@ MainWindow::~MainWindow()
     delete this->grapher;
 }
 
-void MainWindow::on_select_dir_clicked()
+void MainWindow::on_select_files_clicked()
 {
     // this = parent pointer, rest has default values
     QFileDialog dialog(this);
@@ -79,7 +79,6 @@ void MainWindow::on_select_dir_clicked()
         initFiles(dialog.selectedFiles());
         // rename files
         renameFiles();
-        ParseFiles();
     }
 }
 
@@ -193,17 +192,6 @@ void MainWindow::renameFiles()
 
     this->data->setPaths(new_paths);
     this->data->sortByTime();
-/*
-    std::vector<File>::iterator i;
-
-    for(i = this->data->getPaths().begin(); i != this->data->getPaths().end(); ++i)
-    {
-        std::cout << "DEBUG _____: " << (*i).path << std::endl;
-
-
-
-    }
-*/
 
 }
 
@@ -223,4 +211,23 @@ void MainWindow::ParseFiles()
         this->grapher->generateGraph(i);
       std::cout << "ENDT!!!!!!!!!!!!! " << std::endl;
     }
+}
+
+void MainWindow::on_plot_files_clicked()
+{
+    // this = parent pointer, rest has default values
+    QFileDialog dialog(this);
+    // set encoding and type of files to accept
+    dialog.setNameFilter(trUtf8("txt (*.txt)"));
+    // allow user to select multiple files
+    dialog.setFileMode(QFileDialog::ExistingFiles);
+    // needed to make it open properly
+    if (dialog.exec())
+    {
+        // allocate list of selected files (QStringList)
+        initFiles(dialog.selectedFiles());
+        // rename files
+        ParseFiles();
+    }
+
 }

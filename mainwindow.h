@@ -22,7 +22,8 @@ public:
     void test();
 
 private slots:
-    void on_select_dir_clicked();
+    void on_select_files_clicked();
+    void on_plot_files_clicked();
 
 private:
     Ui::MainWindow *ui;
