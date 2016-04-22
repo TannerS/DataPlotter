@@ -14,8 +14,7 @@
 
 Graph FileParser::processFile(boost::filesystem::path path)
 {
-
-
+    std::cout << "DEBUG 8" << std::endl;
     // temp path with removed ext
     boost::filesystem::path temp_path(path);
     //************************************************************does this change original?
@@ -34,26 +33,19 @@ Graph FileParser::processFile(boost::filesystem::path path)
     // open file using path
     //**************************************************************************8
     in.open(temp_path, std::ios::in);
-
     // remove ext so later we can use filename for photo name without the .xxx
     temp_path.replace_extension(".png");
-
-
     // temp Axis to pass between methods and set in graph object
     Axis xy;
     // temp graph
     Graph graph;
-    // make copy of path
-   // boost::filesystem::path temp_path(path);
-    // get rid of extension, this will be added later when producing image
-   // temp_path.replace_extension("");
     // set filename
     graph.setFileName(QString::fromStdString(temp_path.string()));
-    //std::cout << "DEBUG NAME: " << temp_path<< std::endl;
+
     if (in.fail())
     {/* handle */}
-    // used to skip the 14 lines of no data (needs to be dynamic later on)
-    int counter = 0;//14
+    // used to skip the 14 lines of no data
+    int counter = 0;
     // used to get x,y min,max
     float xmin = 0;
     float ymin = 0;
@@ -64,69 +56,30 @@ Graph FileParser::processFile(boost::filesystem::path path)
     // prase each file line
     while (getline(in, temp))
     {
-           // std::cout << "LINE: " << temp<< std::endl;
-
-
+        std::cout << "DEBUG 9" << std::endl;
         // if we are reading the data aprt of the file
         if(counter > 14)
         {
-            // used to find min/max of each axis
+            std::cout << "DEBUG 10" << std::endl;
             // process string to get xy axis
             processString(temp, xy);
-            // get x coordinates, and no
-           // graph.getXAxisVector().push_back(xy.x);
-            //graph.getYAxisVector().push_back(xy.y);
-
+            // get x,y coordinates
             graph.setXAxisVectorPoint(xy.x);
             graph.setYAxisVectorPoint(xy.y);
-
-
-
-
-            for(int i = 0 ;i < 100; i++)
-            {
-               // std::cout <<"NEW: " << xy.x << " " << xy.y << std::endl;
-            }
-
-
-            for(int i = 0 ;i < 100; i++)
-            {
-               // std::cout <<"NEW: " << graph.getXAxisVector().at(i) << " " << graph.getYAxisVector().at(i) << std::endl;
-            }
-
-
-
-
-
-
-
             // first real line of data
             if(counter == 15)
             {
+                std::cout << "DEBUG 11" << std::endl;
                 // set up default min and max as the firts value
                 xmin = xmax = xy.x;
                 ymin = ymax = xy.y;
-
-                // set graph size plus offset
-              //  float x_data_range_min = 0;
-               // float y_data_range_min = 0;
-              //  float x_data_range_max = 0;
-              //  float y_data_range_max = 0;
-
-              //  std::cout << "DEBUG RANGE: "<< std::endl;
-              //  std::cout << "XMAX: "<<  xmax << std::endl;
-              //  std::cout << "XMIN: "<< xmin<<  std::endl;
-              //  std::cout << "YMAX: "<<  ymax  << std::endl;
-              //  std::cout << "YMIN: "<< ymin<<  std::endl;
-
                 // one more so it does not enter this if statement agian
+                //****************************************************************use bool
                 counter++;
             }
             else
             {
-
-
-                //compare to find min
+                //compare to find min and max for each x and y
                 if(xy.x < xmin)
                     xmin = xy.x;
                 if(xy.x > xmax)
@@ -135,36 +88,41 @@ Graph FileParser::processFile(boost::filesystem::path path)
                     ymin = xy.y;
                 if(xy.y > ymax)
                     ymax = xy.y;
-               // counter++;
+                std::cout << "DEBUG 12" << std::endl;
             }
         }
         else
+        {
             counter++;
+            std::cout << "DEBUG 13" << std::endl;
+        }
     }
 
     graph.setXMax(xmax);
     graph.setXMin(xmin);
     graph.setYMax(ymax);
     graph.setYMin(ymin);
-
-
+std::cout << "DEBUG 14" << std::endl;
     return graph;
 }
 
 void FileParser::processString(std::string& file, Axis& ax)
 {
+     std::cout << "DEBUG 15" << std::endl;
     if (!file.empty())
     {
+         std::cout << "DEBUG 16" << std::endl;
         partialParse(file);
         std::istringstream ss{file};
-
+ std::cout << "DEBUG 17" << std::endl;
         ss >> ax.x >> ax.y;
-  //  std::cout << "DEBUG POINTS: " << ax.x <<  " " << ax.x<< std::endl;
+         std::cout << "DEBUG 18" << std::endl;
     }
 }
 
 void FileParser::partialParse(std::string& str)
 {
+     std::cout << "DEBUG 19" << std::endl;
     auto i{ std::find(std::begin(str), std::end(str), '[') };
     std::remove(std::begin(str), i, '-');
     std::remove_if(std::begin(str), std::end(str), [](char c)

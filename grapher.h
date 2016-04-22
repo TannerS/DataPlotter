@@ -14,6 +14,7 @@ class Grapher
         bool addGraph(Graph);
         void generateGraph(int);
         ~Grapher();
+        void graphReset();
 
     private:
         QCustomPlot* plotter;

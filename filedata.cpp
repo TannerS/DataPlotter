@@ -18,6 +18,12 @@ bool FileData::addPath(File path)
     return true;
 }
 
+void FileData::pathReset()
+{
+    this->paths.clear();
+}
+
+
 auto FileData::getNumberOfPaths()
 {
     return paths.size();

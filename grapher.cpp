@@ -4,13 +4,10 @@
 #include <iostream>
 
 // set plotter to 0 aka null
-//********************************************test nullptr
-Grapher::Grapher() : plotter(0)
+Grapher::Grapher() : plotter(nullptr)
 {
     plotter = new QCustomPlot;
-    //plotter->savePng(qApp->applicationDirPath()+"/output.png", 500, 300);
     graphs = new QVector<Graph>();
-    //curve = new QCPCurve();
 }
 
 Grapher::~Grapher()
@@ -28,45 +25,21 @@ QVector<Graph>* Grapher::getGraphs()
 
 void Grapher::generateGraph(int i)
 {
-    // http://www.qcustomplot.com/index.php/support/forum/201
+     std::cout << "DEBUG 15" << std::endl;
+    //***********************************************use local curve, and erase info dont allocate one within class
     Graph temp(this->graphs->at(i));
-
-
     // add graph
     plotter->addGraph();
-
-
+    // create curve since our data needs it to do what it needs to do and can
+    // only do it while using a curve
     curve = new QCPCurve(plotter->xAxis, plotter->yAxis);
-    //curve->
+    // add curve lines to graph
     plotter->addPlottable(curve);
-    //this->newCurve->setData(x, y);
-
-
-
-
-
-
-        //QCPCurve* curve = new QCPCurve(plotter->xAxis, plotter->yAxis);
-        //plotter->addPlottable(curve);
-        // fixes a lot
-      //plotter->graph(0)->setLineStyle((QCPGraph::LineStyle)QCPGraph::lsLine);
-   curve->setLineStyle((QCPCurve::LineStyle)QCPCurve::lsLine);
-
-       //plotter->graph(0)->setLineStyle((QCPGraph::LineStyle)QCPGraph::lsNone);
-
-//plotter->graph(0)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssDisc , 1));
-   curve->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssDisc , 1));
-//curve->setLineStyle((QCPGraph::LineStyle)QCPGraph::ls);
-
-    for(int i = 0 ;i < temp.getXAxisVector().size(); i++)
-    {
-        //std::cout <<"(" << temp.getXAxisVector().at(i) << " " <<temp.getYAxisVector().at(i) <<")" << std::endl;
-    }
-//newCurve->
-    //plotter->graph(0)->setData(temp.getXAxisVector(), temp.getYAxisVector());
-  curve->setData(temp.getXAxisVector(), temp.getYAxisVector());
-
-  // curve->
+    // *************************************************************may not beed needed
+    curve->setLineStyle((QCPCurve::LineStyle)QCPCurve::lsLine);
+    // *************************************************************may not beed needed
+    curve->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssDisc , 1));
+    curve->setData(temp.getXAxisVector(), temp.getYAxisVector());
     // set axis
     plotter->xAxis->setLabel("X");
     // sext axis
@@ -76,41 +49,32 @@ void Grapher::generateGraph(int i)
     float y_data_range_min = temp.getYMin();
     float x_data_range_max = temp.getXMax();
     float y_data_range_max = temp.getYMax();
-
-   // std::cout << "DEBUG RANGE: "<< std::endl;
-  //  std::cout << "XMAX: "<<  x_data_range_max << std::endl;
-  //  std::cout << "XMIN: "<< x_data_range_min<<  std::endl;
-  // std::cout << "YMAX: "<<  y_data_range_max << std::endl;
-  //  std::cout << "YMIN: "<< y_data_range_min<<  std::endl;
-
-
-
+    // set ranges with offset
     plotter->xAxis->setRange(x_data_range_min-5, x_data_range_max+5);
     plotter->yAxis->setRange(y_data_range_min-5, y_data_range_max+5);
-
     // set it up
     plotter->replot();
     // save as image
-    //QString str = this->graphs->at(i).
-   //std::cout << "DEBUG NAME2: " << temp.getFileName()<< std::endl;
-
     plotter->savePng(temp.getFileName());
-        plotter->saveJpg("test.jpg");
-       // plotter->s
     // close graph
     plotter->close();
-
-   // delete curve;
+    // clear data for next graph (if need be)
     curve->clearData();
+     std::cout << "DEBUG 16" << std::endl;
 }
 
 bool Grapher::addGraph(Graph g)
 {
+     std::cout << "DEBUG 17" << std::endl;
     this->graphs->push_back(g);
     return true;
 }
 
-
+void Grapher::graphReset()
+{
+     std::cout << "DEBUG 18" << std::endl;
+    this->graphs->clear();
+}
 
 
 
