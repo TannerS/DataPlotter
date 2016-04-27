@@ -16,10 +16,9 @@
 #include <algorithm>
 #include <fstream>
 #include "axis.h"
-
 #include <boost/spirit/include/qi.hpp>
-        #include <string>
-        #include <iostream>
+#include <string>
+#include <iostream>
 #include "grapher.h"
 
     //todo
