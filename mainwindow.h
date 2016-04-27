@@ -34,6 +34,7 @@ private:
     FileParser* parser;
     void ParseFiles();
     Grapher* grapher;
+    void generateGraphs();
 };
 
 #endif // MAINWINDOW_H
