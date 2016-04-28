@@ -20,6 +20,8 @@
 #include <string>
 #include <iostream>
 #include "grapher.h"
+#include "boost/thread.hpp"
+#include <QtConcurrent/QtConcurrent>
 
     //todo
 /*
@@ -59,8 +61,8 @@ MainWindow::~MainWindow()
     delete ui;
     delete data;
     delete names;
-    delete this->parser;
-    delete this->grapher;
+    delete parser;
+    delete grapher;
 }
 
 void MainWindow::on_select_files_clicked()
@@ -184,78 +186,21 @@ void MainWindow::renameFiles()
 
 void MainWindow::ParseFiles()
 {
-    //reset graphs
-    if(this->grapher->getGraphs()->size() != 0)
-    {
-        std::cout << "DEBUG 7.1" << std::endl;
-        this->grapher->graphReset();
-    }
-    /*
-  //  else
-    //{
-        std::cout << "DEBUG 8" << std::endl;
-        // loop files selected earlier
-        for(int i = 0; i < this->data->getPaths().size(); i++)
-        {
-            // process path and add graph object to grapher's built in
-            // graph object array
-            // this method also collects info from the file
-            // then adds graph
-            this->grapher->addGraph(this->parser->processFile(this->data->getPaths().at(i).path));
-           // // generate graph and save image
-            std::cout << "START!!!!!!!!!!!!! " << " " << this->data->getPaths().at(i).path << " "<< this->data->getPaths().size() << std::endl;
-            this->grapher->generateGraph(i);
-            std::cout << "ENDT!!!!!!!!!!!!! " << std::endl;
-        }
-    //}
-    */
-
-
-    //  else
-      //{
-          std::cout << "DEBUG 8" << std::endl;
-          // loop files selected earlier
-          for(int i = 0; i < this->data->getPaths().size(); i++)
-          {
-              // process path and add graph object to grapher's built in
-              // graph object array
-              // this method also collects info from the file
-              // then adds graph
-              this->grapher->addGraph(this->parser->processFile(this->data->getPaths().at(i).path));
-             // // generate graph and save image
-              //std::cout << "START!!!!!!!!!!!!! " << " " << this->data->getPaths().at(i).path << " "<< this->data->getPaths().size() << std::endl;
-              //this->grapher->generateGraph(i);
-              //std::cout << "ENDT!!!!!!!!!!!!! " << std::endl;
-          }
-      //}
-
-
-
+    // QVector<boost::filesystem::path>
+    this->parser->storePaths(this->data->getPaths());
+    this->parser->run();
+    //this->parser->join();
 }
 
 void MainWindow::generateGraphs()
 {
-    std::cout << "DEBUG 8" << std::endl;
-    // loop files selected earlier
-    for(int i = 0; i < this->data->getPaths().size(); i++)
-    {
-        // process path and add graph object to grapher's built in
-        // graph object array
-        // this method also collects info from the file
-        // then adds graph
-        //this->grapher->addGraph(this->parser->processFile(this->data->getPaths().at(i).path));
-       // // generate graph and save image
-        //std::cout << "START!!!!!!!!!!!!! " << " " << this->data->getPaths().at(i).path << " "<< this->data->getPaths().size() << std::endl;
-        this->grapher->generateGraph(i);
-        //std::cout << "ENDT!!!!!!!!!!!!! " << std::endl;
-    }
-
-
+    this->grapher->addGraphs(this->parser->getGraphs());
+    this->grapher->run();
+   // b  this->parser->join();
 }
 
 void MainWindow::on_plot_files_clicked()
 {
-    std::cout << "DEBUG 5" << std::endl;
     // this = parent pointer, rest has default values
     QFileDialog dialog(this);
     // set encoding and type of files to accept
@@ -265,12 +210,32 @@ void MainWindow::on_plot_files_clicked()
     // needed to make it open properly
     if (dialog.exec())
     {
-        std::cout << "DEBUG 6" << std::endl;
         // allocate list of selected files (QStringList)
         initFiles(dialog.selectedFiles());
         // rename files
+        //boost::thread* parse_thread = new boost::thread(boost::bind(&MainWindow::ParseFiles, this));
+        //parse_thread->join();
+
+
         ParseFiles();
-        std::cout << "DEBUG 7" << std::endl;
+        //QtConcurrent::run(ParseFiles);
+        //QFuture<void> parse_thread = QtConcurrent::run(&ParseFiles);
+       // parse_thread.waitForFinished();
+       // QThreadPool *threadPool = QThreadPool::globalInstance();
+        //threadPool->start(this);
+       // this->run();
+        //threadPool->waitForDone();
+
+        // start thread
+        // http://stackoverflow.com/questions/4581476/using-boost-thread-and-a-non-static-class-function
+       // boost::thread* plot_thread = new boost::thread(boost::bind(&MainWindow::generateGraphs, this));
+        //boost::thread plot_thread(&generateGraphs);
+         //std::thread t1(&(MainWindow::generateGraphs);
+       // plot_thread->join();
+
+         //Join the thread with the main thread
+        // t1.join();
+
         generateGraphs();
         std::cout << "DEBUG 7.2" << std::endl;
     }

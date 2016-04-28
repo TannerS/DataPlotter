@@ -6,13 +6,14 @@
 #include "filenames.h"
 #include "fileparser.h"
 #include "grapher.h"
+#include <QRunnable>
 
 namespace Ui
 {
     class MainWindow;
 }
 
-class MainWindow : public QMainWindow
+class MainWindow : public QMainWindow//, public QRunnable
 {
     Q_OBJECT
 
@@ -20,6 +21,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     void test();
+    void run();
 
 private slots:
     void on_select_files_clicked();

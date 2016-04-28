@@ -5,20 +5,22 @@
 #include "qcustomplot.h"
 #include <QVector>
 #include "graph.h"
+#include <QThread>
 
-class Grapher
+class Grapher : public QThread
 {
     public:
         Grapher();
-        QVector<Graph>* getGraphs();
-        bool addGraph(Graph);
-        void generateGraph(int);
+        void addGraphs(QVector<Graph> );
+        void generateGraphs();
         ~Grapher();
         void graphReset();
+        void stop();
+        void run();
 
     private:
         QCustomPlot* plotter;
-        QVector<Graph>* graphs;
+        QVector<Graph> graphs;
         QCPCurve* curve;
         //void generateGraph(int);
 };
