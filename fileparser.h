@@ -5,25 +5,17 @@
 #include "axis.h"
 #include <QVector>
 #include "graph.h"
-#include <QRunnable>
-#include <QThread>
-#include "file.h"
 
-class FileParser : public QThread
+class FileParser
 {
     public:
-        void processFiles();
-        void storePaths(std::vector<File>);
-        void stop();
-        QVector<Graph> getGraphs();
-        void run();
+
+        Graph processFile(boost::filesystem::path);
+
+
     private:
         void processString(std::string&, Axis&);
         void partialParse(std::string&);
-        QVector<Graph> graphs;
-        QVector<boost::filesystem::path> paths;
-
-
 };
 
 
