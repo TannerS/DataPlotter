@@ -190,7 +190,6 @@ void MainWindow::ParseFiles()
         std::cout << "DEBUG 7.1" << std::endl;
         this->grapher->graphReset();
     }
-    /*
   //  else
     //{
         std::cout << "DEBUG 8" << std::endl;
@@ -208,49 +207,6 @@ void MainWindow::ParseFiles()
             std::cout << "ENDT!!!!!!!!!!!!! " << std::endl;
         }
     //}
-    */
-
-
-    //  else
-      //{
-          std::cout << "DEBUG 8" << std::endl;
-          // loop files selected earlier
-          for(int i = 0; i < this->data->getPaths().size(); i++)
-          {
-              // process path and add graph object to grapher's built in
-              // graph object array
-              // this method also collects info from the file
-              // then adds graph
-              this->grapher->addGraph(this->parser->processFile(this->data->getPaths().at(i).path));
-             // // generate graph and save image
-              //std::cout << "START!!!!!!!!!!!!! " << " " << this->data->getPaths().at(i).path << " "<< this->data->getPaths().size() << std::endl;
-              //this->grapher->generateGraph(i);
-              //std::cout << "ENDT!!!!!!!!!!!!! " << std::endl;
-          }
-      //}
-
-
-
-}
-
-void MainWindow::generateGraphs()
-{
-    std::cout << "DEBUG 8" << std::endl;
-    // loop files selected earlier
-    for(int i = 0; i < this->data->getPaths().size(); i++)
-    {
-        // process path and add graph object to grapher's built in
-        // graph object array
-        // this method also collects info from the file
-        // then adds graph
-        //this->grapher->addGraph(this->parser->processFile(this->data->getPaths().at(i).path));
-       // // generate graph and save image
-        //std::cout << "START!!!!!!!!!!!!! " << " " << this->data->getPaths().at(i).path << " "<< this->data->getPaths().size() << std::endl;
-        this->grapher->generateGraph(i);
-        //std::cout << "ENDT!!!!!!!!!!!!! " << std::endl;
-    }
-
-
 }
 
 void MainWindow::on_plot_files_clicked()
@@ -271,8 +227,6 @@ void MainWindow::on_plot_files_clicked()
         // rename files
         ParseFiles();
         std::cout << "DEBUG 7" << std::endl;
-        generateGraphs();
-        std::cout << "DEBUG 7.2" << std::endl;
     }
 
 }
