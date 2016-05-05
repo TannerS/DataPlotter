@@ -15,7 +15,6 @@ class FileData
         void pathReset();
     private:
         std::vector<File> paths;
-        //************************************************8
 };
 
 #endif // DATA_H

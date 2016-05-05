@@ -58,20 +58,6 @@ FileNames::FileNames() : settings_name("file_names.csv")
 
                 this->names.insert(file_info);
 
-/*
-                std::unordered_map<std::string,std::string>::const_iterator iter2 = names.find (x);
-
-                 if (iter2 == names.end())
-                 {
-                             std::cout << " ************************************************************************** " ;
-                   //1return iter2->second;
-                 }
-                 else
-                   std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! " ;
-
-
-                // http://stackoverflow.com/questions/9926544/assigning-value-into-unordered-map-pointer-after-creating-a-instance-of-it
-*/
             }
         }
     }
@@ -79,7 +65,6 @@ FileNames::FileNames() : settings_name("file_names.csv")
 
  std::string FileNames::getMapValue(std::string str)
  {
-     // http://stackoverflow.com/questions/9926544/assigning-value-into-unordered-map-pointer-after-creating-a-instance-of-it
      std::string temp;
     temp = this->names[str];
      return temp;

@@ -20,7 +20,6 @@ class Grapher
         QCustomPlot* plotter;
         QVector<Graph>* graphs;
         QCPCurve* curve;
-        //void generateGraph(int);
 };
 
 #endif // GRAPHER_H

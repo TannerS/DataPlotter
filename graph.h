@@ -25,7 +25,7 @@ class Graph
         float getYMax();
 
     private:
-        QString file_name;// = QString::fromStdString(name);
+        QString file_name;
         QString path;
         QVector<double> x;
         QVector<double> y;

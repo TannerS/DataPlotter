@@ -31,8 +31,5 @@ auto FileData::getNumberOfPaths()
 
 void FileData::sortByTime()
 {
-    // FIND ALTER SOLUTION************************************
     std::sort(paths.begin(), paths.end(), FileCMP());
-    // http://stackoverflow.com/questions/1380463/sorting-a-vector-of-custom-objects
-    // http://stackoverflow.com/questions/14081335/algorithm-vector-sort-with-objects
 }

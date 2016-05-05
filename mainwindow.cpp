@@ -21,20 +21,6 @@
 #include <iostream>
 #include "grapher.h"
 
-    //todo
-/*
- * if file already exist when renaming***********
- *  error checking
- * deletes when needed
- * convert other stuff to deletes from statics\
-eat up worthless liness
-
-
-
-path, fileinfo etc for ploting
- *
- */
-
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     // set up UI
@@ -124,6 +110,11 @@ void MainWindow::initFiles(QStringList files)
             }
        // }
     }
+
+
+        for(int i = 0; i < data->getPaths().size() ;i++)
+           std::cout << "paths: " << data->getPaths().at(i).path<<std::endl;
+
 }
 
 void MainWindow::renameFiles()
@@ -150,12 +141,21 @@ void MainWindow::renameFiles()
         file_name = this->names->getMapValue(file_name);
         // need to modified for unix
         boost::filesystem::path temp(std::string(t.at(i).path.parent_path().string() + "\\" + file_name));
+
+
+
+
         // if path exist
         if ( boost::filesystem::exists( t.at(i).path ) )
         {
             try
             {
+
+                std::cout << "PATH: " << t.at(i).path << " NEW PATH: " << temp << std::endl;
                 boost::filesystem::rename( t.at(i).path, temp );
+
+
+
                 // get info before rename and make new vector with same info except new renamed paths
                 temp_file.last_modified_state = t.at(i).last_modified_state;
                 temp_file.path = temp;
@@ -202,9 +202,7 @@ void MainWindow::ParseFiles()
             // then adds graph
             this->grapher->addGraph(this->parser->processFile(this->data->getPaths().at(i).path));
            // // generate graph and save image
-            std::cout << "START!!!!!!!!!!!!! " << " " << this->data->getPaths().at(i).path << " "<< this->data->getPaths().size() << std::endl;
             this->grapher->generateGraph(i);
-            std::cout << "ENDT!!!!!!!!!!!!! " << std::endl;
         }
     //}
 }

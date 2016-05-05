@@ -74,7 +74,6 @@ Graph FileParser::processFile(boost::filesystem::path path)
                 xmin = xmax = xy.x;
                 ymin = ymax = xy.y;
                 // one more so it does not enter this if statement agian
-                //****************************************************************use bool
                 counter++;
             }
             else
