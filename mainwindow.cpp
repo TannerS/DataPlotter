@@ -20,6 +20,9 @@
 #include <string>
 #include <iostream>
 #include "grapher.h"
+#include <thread>
+#include <future>
+#include <QtConcurrent/QtConcurrent>
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -37,6 +40,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     this->parser = new FileParser();
     // create object to process graphs
     this->grapher = new Grapher();
+
+
+    //QThread* temp = new QThread();
+
+    //connect(ui->plot_files, SIGNAL(clicked()), temp, SLOT(ParseFiles()));
 }
 
 MainWindow::~MainWindow()
@@ -151,7 +159,7 @@ void MainWindow::renameFiles()
             try
             {
 
-                std::cout << "PATH: " << t.at(i).path << " NEW PATH: " << temp << std::endl;
+                //std::cout << "PATH: " << t.at(i).path << " NEW PATH: " << temp << std::endl;
                 boost::filesystem::rename( t.at(i).path, temp );
 
 
@@ -187,12 +195,10 @@ void MainWindow::ParseFiles()
     //reset graphs
     if(this->grapher->getGraphs()->size() != 0)
     {
-        std::cout << "DEBUG 7.1" << std::endl;
         this->grapher->graphReset();
     }
   //  else
     //{
-        std::cout << "DEBUG 8" << std::endl;
         // loop files selected earlier
         for(int i = 0; i < this->data->getPaths().size(); i++)
         {
@@ -209,7 +215,13 @@ void MainWindow::ParseFiles()
 
 void MainWindow::on_plot_files_clicked()
 {
-    std::cout << "DEBUG 5" << std::endl;
+    //std::thread* plot;
+//plot_files
+
+
+
+   // loadButton = new QPushButton(tr("&Load image..."));
+
     // this = parent pointer, rest has default values
     QFileDialog dialog(this);
     // set encoding and type of files to accept
@@ -219,12 +231,20 @@ void MainWindow::on_plot_files_clicked()
     // needed to make it open properly
     if (dialog.exec())
     {
-        std::cout << "DEBUG 6" << std::endl;
         // allocate list of selected files (QStringList)
         initFiles(dialog.selectedFiles());
         // rename files
-        ParseFiles();
-        std::cout << "DEBUG 7" << std::endl;
+        //  std::thread t(&bar::foo, bar());
+       // plot = new std::thread(&MainWindow::ParseFiles, this);
+        //plot->join();
+
+        //std::async(std::launch::async,  [this]{ ParseFiles(); });
+        this->ParseFiles();
+        //QFuture<void> f1 = QtConcurrent::run(this->ParseFiles, nullptr);
+       // f1.waitForFinished();
+
     }
+
+    //delete plot;
 
 }

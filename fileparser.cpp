@@ -14,20 +14,8 @@
 
 Graph FileParser::processFile(boost::filesystem::path path)
 {
-    std::cout << "DEBUG 8" << std::endl;
     // temp path with removed ext
     boost::filesystem::path temp_path(path);
-    //************************************************************does this change original?
-  //  std::cout << "DEBUG_: "<< temp_path.filename() << std::endl;
-
-    //std::cout << "DEBUG_: "<< temp_path.parent_path() << std::endl;
-    //std::cout << "DEBUG_: "<< temp_path.branch_path() << std::endl;
-    //std::cout << "DEBUG_: "<< temp_path.generic_string() << std::endl;
-    //std::cout << "DEBUG_: "<<  temp_path.relative_path()<< std::endl;
-    //std::cout << "DEBUG_: "<< temp_path.root_directory() << std::endl;
-    //std::cout << "DEBUG_: "<< temp_path.root_path()<< std::endl;
-    //std::cout << "DEBUG_: "<<  temp_path.path() << std::endl;
-
     // create stream to open file
     boost::filesystem::fstream in;
     // open file using path
@@ -56,11 +44,9 @@ Graph FileParser::processFile(boost::filesystem::path path)
     // prase each file line
     while (getline(in, temp))
     {
-        std::cout << "DEBUG 9" << std::endl;
         // if we are reading the data aprt of the file
         if(counter > 14)
         {
-            std::cout << "DEBUG 10" << std::endl;
             // process string to get xy axis
             processString(temp, xy);
             // get x,y coordinates
@@ -69,7 +55,6 @@ Graph FileParser::processFile(boost::filesystem::path path)
             // first real line of data
             if(counter == 15)
             {
-                std::cout << "DEBUG 11" << std::endl;
                 // set up default min and max as the firts value
                 xmin = xmax = xy.x;
                 ymin = ymax = xy.y;
@@ -87,13 +72,12 @@ Graph FileParser::processFile(boost::filesystem::path path)
                     ymin = xy.y;
                 if(xy.y > ymax)
                     ymax = xy.y;
-                std::cout << "DEBUG 12" << std::endl;
+
             }
         }
         else
         {
             counter++;
-            std::cout << "DEBUG 13" << std::endl;
         }
     }
 
@@ -101,13 +85,11 @@ Graph FileParser::processFile(boost::filesystem::path path)
     graph.setXMin(xmin);
     graph.setYMax(ymax);
     graph.setYMin(ymin);
-std::cout << "DEBUG 14" << std::endl;
     return graph;
 }
 
 void FileParser::processString(std::string& file, Axis& ax)
 {
-     std::cout << "DEBUG 15" << std::endl;
     if (!file.empty())
     {
          std::cout << "DEBUG 16" << std::endl;

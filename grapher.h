@@ -1,7 +1,5 @@
 #ifndef GRAPHER_H
 #define GRAPHER_H
-
-
 #include "qcustomplot.h"
 #include <QVector>
 #include "graph.h"

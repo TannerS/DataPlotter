@@ -14,7 +14,6 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    file.cpp \
     filedata.cpp \
     qcustomplot.cpp \
     filenames.cpp \
