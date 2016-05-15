@@ -19,7 +19,6 @@ Graph FileParser::processFile(boost::filesystem::path path)
     // create stream to open file
     boost::filesystem::fstream in;
     // open file using path
-    //**************************************************************************8
     in.open(temp_path, std::ios::in);
     // remove ext so later we can use filename for photo name without the .xxx
     temp_path.replace_extension(".png");
@@ -44,6 +43,10 @@ Graph FileParser::processFile(boost::filesystem::path path)
     // prase each file line
     while (getline(in, temp))
     {
+        // if the line is the time
+        if(counter == 11)
+            // get the time
+            graph.setTime(temp);
         // if we are reading the data aprt of the file
         if(counter > 14)
         {
@@ -77,14 +80,16 @@ Graph FileParser::processFile(boost::filesystem::path path)
         }
         else
         {
+            // increase counter
             counter++;
         }
     }
-
+    // set min and max values for x and y
     graph.setXMax(xmax);
     graph.setXMin(xmin);
     graph.setYMax(ymax);
     graph.setYMin(ymin);
+
     return graph;
 }
 
@@ -92,20 +97,20 @@ void FileParser::processString(std::string& file, Axis& ax)
 {
     if (!file.empty())
     {
-         std::cout << "DEBUG 16" << std::endl;
         partialParse(file);
         std::istringstream ss{file};
- std::cout << "DEBUG 17" << std::endl;
         ss >> ax.x >> ax.y;
-         std::cout << "DEBUG 18" << std::endl;
+
     }
 }
 
 void FileParser::partialParse(std::string& str)
 {
-     std::cout << "DEBUG 19" << std::endl;
+
     auto i{ std::find(std::begin(str), std::end(str), '[') };
+    //std::cout << "DEBUG1: " << str << std::endl;
     std::remove(std::begin(str), i, '-');
+    //std::cout << "DEBUG2: " << str << std::endl;
     std::remove_if(std::begin(str), std::end(str), [](char c)
                                                     {
                                                         return c == ',' || c == '[' || c == ']';

@@ -8,6 +8,8 @@ Grapher::Grapher() : plotter(nullptr)
 {
     plotter = new QCustomPlot;
     graphs = new QVector<Graph>();
+    time_stamp = new QCPItemText(plotter);
+    plotter->addItem(time_stamp);
 }
 
 Grapher::~Grapher()
@@ -71,14 +73,14 @@ void Grapher::generateGraph(int i)
    //
    // bottom_axis->
 
-            QCPItemText* time_stamp = new QCPItemText(plotter);
-    plotter->addItem(time_stamp);
+   //time_stamp = new QCPItemText(plotter);
+    //plotter->addItem(time_stamp);
 
     //time_stamp->position->setAxes(bottom_axis->axis(QCPAxis::atBottom), bottom_axis->axis(QCPAxis::atLeft));
 
 
     time_stamp->setColor(QColor(0, 0, 255));
-    time_stamp->setText("TESTINGhhhhhhhhhhh");
+    time_stamp->setText(QString::fromStdString(temp.getTime()));
    time_stamp->setPositionAlignment(Qt::AlignBottom | Qt::AlignRight);
     time_stamp->setClipToAxisRect(true);
    time_stamp->position->setType(QCPItemPosition::ptAxisRectRatio);
@@ -99,6 +101,9 @@ void Grapher::generateGraph(int i)
     plotter->close();
     // clear data for next graph (if need be)
     curve->clearData();
+
+    // time_stamp->deleteLater();
+   //  time_stam
 
     plotter->graph()->clearData();
 

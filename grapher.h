@@ -13,11 +13,16 @@ class Grapher
         void generateGraph(int);
         ~Grapher();
         void graphReset();
+       // std::string getTime();
+        //void setTime();
 
     private:
         QCustomPlot* plotter;
         QVector<Graph>* graphs;
         QCPCurve* curve;
+        QCPItemText* time_stamp;
+
+
 };
 
 #endif // GRAPHER_H

@@ -9,8 +9,7 @@
 #include <unordered_map>
 
 FileNames::FileNames() : settings_name("file_names.csv")
-{
-}
+{}
 
  void FileNames::loadSettings()
 {

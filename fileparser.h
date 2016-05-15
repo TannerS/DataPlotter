@@ -15,7 +15,9 @@ class FileParser
 
     private:
         void processString(std::string&, Axis&);
+        void processString(std::string&, float&);
         void partialParse(std::string&);
+        void parseTime(std::string&);
 };
 
 

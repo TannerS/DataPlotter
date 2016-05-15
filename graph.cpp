@@ -1,9 +1,13 @@
 #include "graph.h"
 
-Graph::Graph()
+std::string Graph::getTime()
 {
+    return this->time;
+}
 
-
+void Graph::setTime(std::string time)
+{
+    this->time = time;
 }
 
 void Graph::setFileName(QString name)

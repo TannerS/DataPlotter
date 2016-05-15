@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWindow w;
-    w.setWindowTitle("renamer");
+    w.setWindowTitle("Data Utility");
     QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     w.show();
     return a.exec();

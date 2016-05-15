@@ -6,7 +6,6 @@
 class Graph
 {
     public:
-        Graph();
         QString getPath();
         void setPath(QString);
         void setFileName(QString);
@@ -23,6 +22,8 @@ class Graph
         float getXMax();
         float getYMin();
         float getYMax();
+        std::string getTime();
+        void setTime(std::string);
 
     private:
         QString file_name;
@@ -33,6 +34,7 @@ class Graph
         float xmax;
         float ymin;
         float ymax;
+        std::string time;
 };
 
 #endif // GRAPHS_H
