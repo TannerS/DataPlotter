@@ -1,7 +1,6 @@
 #include "grapher.h"
 #include "graph.h"
 #include "qcustomplot.h"
-#include <iostream>
 #include "mainwindow.h"
 
 // constructor
