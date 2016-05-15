@@ -1,6 +1,5 @@
 #include "fileparser.h"
 #include "boost/filesystem/path.hpp"
-
 #include "boost/filesystem/fstream.hpp"
 #include "axis.h"
 #include <sstream>

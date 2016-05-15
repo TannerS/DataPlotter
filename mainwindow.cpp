@@ -176,7 +176,7 @@ void MainWindow::ParseFiles()
     // this fixed problem with graphs
     // over lapping on each other
     // from a previous run
-    if(this->grapher->getGraphs()->size() != 0)
+    if(this->grapher->getGraphs().size() != 0)
         this->grapher->graphReset();
     // loop files selected earlier
     for(int i = 0; i < this->data->getPaths().size(); i++)
@@ -188,6 +188,8 @@ void MainWindow::ParseFiles()
         // generate graph and save image at graph i
         this->grapher->generateGraph(i);
     }
+    // delete graphs
+    this->grapher->deleteGraphs();
 }
 // when click button to plot
 void MainWindow::on_plot_files_clicked()

@@ -5,6 +5,7 @@
 
 class Graph
 {
+    // check .cpp file for more info
     public:
         QString getPath();
         void setPath(QString);

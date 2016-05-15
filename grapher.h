@@ -6,19 +6,19 @@
 
 class Grapher
 {
+    // check .cpp file for more info
     public:
         Grapher();
-        QVector<Graph>* getGraphs();
-        bool addGraph(Graph);
+        QVector<Graph*> getGraphs();
+        bool addGraph(Graph*);
         void generateGraph(int);
         ~Grapher();
         void graphReset();
-       // std::string getTime();
-        //void setTime();
+        void deleteGraphs();
 
     private:
         QCustomPlot* plotter;
-        QVector<Graph>* graphs;
+        QVector<Graph*> graphs;
         QCPCurve* curve;
         QCPItemText* time_stamp;
 
