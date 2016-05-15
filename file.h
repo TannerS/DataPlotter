@@ -3,13 +3,16 @@
 
 #include "boost/filesystem/path.hpp"
 
-// needed to get sorting working, will try alternative solution later
+// needed to get sorting working
+// only solutions I can find was using struc
+// and not a class
 struct File
 {
     boost::filesystem::path path;
     time_t last_modified_state;
 };
 
+// this struc holds a method that describes the sorting method
 struct FileCMP
 {
     bool operator()( const File& f1, const File& f2 ) const

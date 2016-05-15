@@ -8,10 +8,9 @@
 
 class FileParser
 {
+    // check .cpp file for more info
     public:
-
-        Graph processFile(boost::filesystem::path);
-
+        Graph* processFile(boost::filesystem::path);
 
     private:
         void processString(std::string&, Axis&);

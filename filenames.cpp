@@ -1,7 +1,6 @@
-
 #include "filenames.h"
 #include "boost/tokenizer.hpp"
-#include <fstream>//
+#include <fstream>
 #include "boost/regex.hpp"
 #include <QMessageBox>
 #include <unordered_map>
