@@ -6,6 +6,7 @@
 
 class FileNames
 {
+    // check .cpp file for more info
     public:
         FileNames();
         void loadSettings();

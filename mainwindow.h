@@ -25,7 +25,6 @@ private slots:
     void on_select_files_clicked();
     void on_plot_files_clicked();
 
-
 private:
     Ui::MainWindow *ui;
     void ParseFiles();
@@ -34,7 +33,6 @@ private:
     FileData* data;
     FileNames* names;
     FileParser* parser;
-
     Grapher* grapher;
 };
 

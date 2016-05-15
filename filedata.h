@@ -6,10 +6,11 @@
 
 class FileData
 {
+    // check .cpp file for more details
     public:
         std::vector<File> getPaths();
-        bool addPath(File path);
-        auto getNumberOfPaths();
+        void addPath(File path);
+        size_t getNumberOfPaths();
         void sortByTime();
         void setPaths(std::vector<File>);
         void pathReset();
